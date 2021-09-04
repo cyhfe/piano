@@ -1,0 +1,9 @@
+.logo {
+  font-size: 5rem;
+  text-align: center;
+  height: var(--logo-height);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 30px;
+}

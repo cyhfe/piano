@@ -1,0 +1,15 @@
+.footer {
+  height: var(--footer-height);
+  padding: 5px;
+  line-height: 1.4;
+  text-align: center;
+  overflow: auto;
+}
+
+.slogen {
+  margin-bottom: 0.5rem;
+}
+
+.time {
+  font-size: .75rem;
+}

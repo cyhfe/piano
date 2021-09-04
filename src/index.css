@@ -1,0 +1,8 @@
+:root {
+  --logo-height: 8rem;
+  --footer-height: 60px;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
