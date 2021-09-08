@@ -7,3 +7,7 @@
   justify-content: center;
   padding-top: 30px;
 }
+
+.logo span {
+  padding: 0 10px;
+}
