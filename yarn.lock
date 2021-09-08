@@ -7422,6 +7422,11 @@ midi-file@^1.1.2:
   resolved "https://registry.yarnpkg.com/midi-file/-/midi-file-1.1.2.tgz#57fafe2dcb605ef29f06652ac45e7a475873dc77"
   integrity sha512-VQNzirfADDFXTymgPJv2VfLylCq14spRNFhpA6u7dLqPMbw1BqGf5u9B0k7z++8X1RMs57pyn+G4kzhyIatlyw==
 
+midi-player-js@^2.0.14:
+  version "2.0.14"
+  resolved "https://registry.yarnpkg.com/midi-player-js/-/midi-player-js-2.0.14.tgz#5b6cd7a9566f32d5e4a1ee89c7bb38bd909270b2"
+  integrity sha512-bSBXHIV6NQe41h0J9GkfTHkFeZUV/SuybgG1oOQRmcp0akkjJ0B1fxtXP23SbdjZkRL9/0mcjyQkyz94UcOlzQ==
+
 midimessage@^1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/midimessage/-/midimessage-1.0.5.tgz#ad99f04d863a053a2563d553c5bf35070b48802c"

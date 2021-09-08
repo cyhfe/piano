@@ -1,33 +1,31 @@
 import styles from "./app.module.css";
 import Logo from "./components/logo/logo";
 import Footer from "./components/footer/footer";
-import Soundfont from "soundfont-player";
 import { useEffect, useRef, useState } from "react";
-// @ts-ignore: Unreachable code error
-import * as loadAudio from "audio-loader";
-
-// // load one file
-// load('http://example.net/audio/file.mp3').then(function (buffer) {
-//   console.log(buffer) // => <AudioBuffer>
-// })
+import SoundFont from "soundfont-player";
+import MidiPlayer from "midi-player-js";
 
 const App = () => {
   const [player, setPlayer] = useState<any>(null);
+  const [instrument, setIntrument] = useState<any>(null);
   const audio = useRef(new AudioContext());
   const load = async () => {
-    const player = await Soundfont.instrument(
+    const instrument = await SoundFont.instrument(
       audio.current,
       "acoustic_grand_piano"
     );
-    setPlayer(player);
+    setIntrument(instrument);
+
+    const player = new MidiPlayer.Player(function (event: any) {
+      console.log(event)
+    });
+    setPlayer(player)
   };
   const handlePlay = async () => {
-    // load one file
-    await loadAudio("/pearls.mid").then(function (buffer: any) {
-      console.log(buffer); // => <AudioBuffer>
-    });
-    player.play("C4");
-    // const midi = await Midi.fromUrl('/pearls.mid')
+    instrument.play("C4");
+    const midi = await fetch("/pearls.mid").then((response) => response.arrayBuffer());
+    player.loadArrayBuffer(midi);
+    player.play()
   };
   useEffect(() => {
     load();
@@ -38,7 +36,8 @@ const App = () => {
       <div className={styles.content}>
         context
         <img src="/logo192.png" alt="" />
-        <button onClick={handlePlay}>play</button>
+        <button onClick={handlePlay}>play instrument</button>
+        <button onClick={handlePlay}>play music</button>
       </div>
       <Footer />
     </div>
