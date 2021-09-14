@@ -1,31 +1,41 @@
 import styles from "./app.module.css";
 import Logo from "./components/logo/logo";
 import Footer from "./components/footer/footer";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import SoundFont from "soundfont-player";
 import MidiPlayer from "midi-player-js";
 
 const App = () => {
-  const [player, setPlayer] = useState<any>(null);
-  const [instrument, setIntrument] = useState<any>(null);
   const audio = useRef(new AudioContext());
+  const player = useRef(
+    new MidiPlayer.Player(function (event: any) {
+      console.log(event);
+      if (event.name === "Note on") {
+        if (event.velocity === 0) {
+          // instrument.current.stop();
+          return;
+        }
+        instrument.current.play(event.noteName, audio.current.currentTime);
+      } else if (event.name === "Note off") {
+        // instrument.current.stop();
+      }
+    })
+  );
+  const instrument = useRef<any>(null);
   const load = async () => {
-    const instrument = await SoundFont.instrument(
+    instrument.current = await SoundFont.instrument(
       audio.current,
       "acoustic_grand_piano"
     );
-    setIntrument(instrument);
-
-    const player = new MidiPlayer.Player(function (event: any) {
-      console.log(event)
-    });
-    setPlayer(player)
   };
   const handlePlay = async () => {
-    instrument.play("C4");
-    const midi = await fetch("/pearls.mid").then((response) => response.arrayBuffer());
-    player.loadArrayBuffer(midi);
-    player.play()
+    const midi = await fetch("/2.mid").then((response) =>
+      response.arrayBuffer()
+    );
+    if (player.current) {
+      player.current.loadArrayBuffer(midi);
+      player.current.play();
+    }
   };
   useEffect(() => {
     load();
@@ -35,8 +45,6 @@ const App = () => {
       <Logo />
       <div className={styles.content}>
         context
-        <img src="/logo192.png" alt="" />
-        <button onClick={handlePlay}>play instrument</button>
         <button onClick={handlePlay}>play music</button>
       </div>
       <Footer />
